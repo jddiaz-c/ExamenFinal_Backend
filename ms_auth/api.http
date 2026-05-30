@@ -1,0 +1,12 @@
+### Login
+POST http://localhost:8001/auth/login
+Content-Type: application/json
+
+{
+    "usuario": "admin",
+    "contrasena": "admin123"
+}
+
+### Logout
+POST http://localhost:8001/auth/logout
+Authorization: TOKEN_AQUI

@@ -1,35 +1,23 @@
 <?php
-namespace App\Tienda\Controllers;
+
+namespace App\Empleados\Controllers;
 
 use App\Core\Validation\Validator;
 use Exception;
 
 abstract class BaseController
 {
-
     protected string $model = "";
     protected const RULES = [];
 
-    // HOOKS
-    protected function beforeCreate(array &$data)
-    {
-    }
-    protected function afterCreate($model)
-    {
-    }
+    // ---------------- HOOKS ----------------
+    protected function beforeCreate(array &$data) {}
+    protected function afterCreate($model) {}
+    protected function beforeUpdate(array &$data, $model) {}
+    protected function afterUpdate($model) {}
+    protected function beforeDelete($model) {}
 
-    protected function beforeUpdate(array &$data, $model)
-    {
-    }
-    protected function afterUpdate($model)
-    {
-    }
-
-    protected function beforeDelete($model)
-    {
-    }
-
-    // CORE METHODS
+    // ---------------- CORE METHODS ----------------
 
     function getAll()
     {
@@ -39,50 +27,41 @@ abstract class BaseController
     function getOne($id)
     {
         $nombre = class_basename($this->model);
-
         $row = ($this->model)::find($id);
 
         if (empty($row)) {
-            throw new Exception("$nombre $id no existe", 1);
+            throw new Exception("$nombre $id no existe.", 1);
         }
 
         return $row;
     }
 
-    function saveData($data)
+    function saveData(array $data)
     {
-
-        // validar estructura
         Validator::validate($data, static::RULES);
 
-        // hook
         $this->beforeCreate($data);
 
         $model = new $this->model();
         $model->fill($data);
         $model->save();
 
-        // hook
         $this->afterCreate($model);
 
         return $model;
     }
 
-    function modify($id, $data)
+    function modify($id, array $data)
     {
-
         $model = $this->getOne($id);
 
-        // validar estructura (modo update)
         Validator::validate($data, static::RULES, true);
 
-        // hook
         $this->beforeUpdate($data, $model);
 
         $model->fill($data);
         $model->save();
 
-        // hook
         $this->afterUpdate($model);
 
         return $model;
@@ -90,10 +69,8 @@ abstract class BaseController
 
     function remove($id)
     {
-
         $model = $this->getOne($id);
 
-        // hook
         $this->beforeDelete($model);
 
         $model->delete();

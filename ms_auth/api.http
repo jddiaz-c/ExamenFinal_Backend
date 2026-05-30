@@ -10,3 +10,7 @@ Content-Type: application/json
 ### Logout
 POST http://localhost:8001/auth/logout
 Authorization: TOKEN_AQUI
+
+### validate
+POST http://localhost:8001/auth/validate
+Authorization: TOKEN_AQUI

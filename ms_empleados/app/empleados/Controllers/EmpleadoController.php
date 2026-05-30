@@ -1,7 +1,7 @@
 <?php
-namespace App\empleados\Controllers;
+namespace App\Empleados\Controllers;
 
-use App\empleados\Models\Empleado;
+use App\Empleados\Models\Empleado;
 use Exception;
 
 class EmpleadoController extends BaseController

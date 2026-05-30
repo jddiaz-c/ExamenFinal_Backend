@@ -6,10 +6,10 @@ require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-require __DIR__ . '/../app/Config/Database.php';
+require __DIR__ . '/../App/Config/Database.php';
 
-$cors     = require __DIR__ . '/../app/Middlewares/CorsMiddleware.php';
-$routes   = require __DIR__ . '/../app/Auth/Routes/endpoints.php';
+$cors     = require __DIR__ . '/../App/Middlewares/CorsMiddleware.php';
+$routes   = require __DIR__ . '/../App/auth/Routes/endpoints.php';
 
 $app = AppFactory::create();
 

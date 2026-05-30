@@ -1,13 +1,14 @@
 <?php
 
-namespace app\empleados\Handlers;
+namespace App\Empleados\Handlers;
 
-use app\empleados\Controllers\EmpleadoController;
+use App\Empleados\Controllers\EmpleadoController;
+use App\Empleados\Handlers\BaseHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Exception;
 
-class EmpleadoHandler extends EmpleadoController
+class EmpleadoHandler extends BaseHandler
 {
     protected function getController(): EmpleadoController
     {

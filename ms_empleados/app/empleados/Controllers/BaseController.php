@@ -10,14 +10,14 @@ abstract class BaseController
     protected string $model = "";
     protected const RULES = [];
 
-    // ---------------- HOOKS ----------------
+    // HOOKS
     protected function beforeCreate(array &$data) {}
     protected function afterCreate($model) {}
     protected function beforeUpdate(array &$data, $model) {}
     protected function afterUpdate($model) {}
     protected function beforeDelete($model) {}
 
-    // ---------------- CORE METHODS ----------------
+    // CORE METHODS
 
     function getAll()
     {

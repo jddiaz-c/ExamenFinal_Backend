@@ -2,9 +2,6 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
-
 $capsule = new Capsule;
 
 $capsule->addConnection([

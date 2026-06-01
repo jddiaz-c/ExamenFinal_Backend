@@ -1,19 +1,22 @@
 <?php
+
 use Slim\Factory\AppFactory;
+use MsCore\Middlewares\CorsMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-require __DIR__ . '/../App/Config/Database.php';
+require __DIR__ . '/../app/Config/Database.php';
 
-$cors     = require __DIR__ . '/../App/Middlewares/CorsMiddleware.php';
-$routes   = require __DIR__ . '/../App/auth/Routes/endpoints.php';
+$routes = require __DIR__ . '/../app/auth/Routes/endpoints.php';
 
 $app = AppFactory::create();
 
-$cors($app);
+$app->options('/{routes:.+}', fn($req, $res) => $res);
+$app->add(new CorsMiddleware());
+
 $routes($app);
 
 $app->run();

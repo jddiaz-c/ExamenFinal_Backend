@@ -1,0 +1,9 @@
+{
+    "name": "mscore/shared",
+    "description": "Paquete compartido para microservicios",
+    "autoload": {
+        "psr-4": {
+            "MsCore\\": "src/"
+        }
+    }
+}

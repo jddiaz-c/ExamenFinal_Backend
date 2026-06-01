@@ -2,6 +2,7 @@
 namespace App\Empleados\Controllers;
 
 use App\Empleados\Models\Empleado;
+use MsCore\Controllers\BaseController;
 use Exception;
 
 class EmpleadoController extends BaseController
@@ -69,8 +70,8 @@ class EmpleadoController extends BaseController
 
         $data['correo'] = strtolower(trim($data['correo']));
 
-        if (Empleado::where('cedula', $data['cedula'])->exists()) {
-            throw new Exception("La cédula ya está registrada.", 2);
+        if (Empleado::where('documento', $data['documento'])->exists()) {
+            throw new Exception("El documento ya está registrado.", 2);
         }
 
         if (Empleado::where('correo', $data['correo'])->exists()) {

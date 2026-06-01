@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Validation;
+namespace MsCore\Validation;
 
 use Exception;
 
@@ -15,12 +15,10 @@ class Validator
             $value = $data[$field] ?? null;
             $isEmpty = is_null($value) || $value === '';
 
-            // Si es update y el campo no viene, se omite
             if ($isUpdate && $isEmpty) {
                 continue;
             }
 
-            // Required
             if (!empty($fieldRules['required']) && $isEmpty) {
                 $errors[] = "El campo '$field' es obligatorio.";
                 continue;
@@ -30,7 +28,6 @@ class Validator
                 continue;
             }
 
-            // Type
             if (isset($fieldRules['type'])) {
                 switch ($fieldRules['type']) {
                     case 'string':

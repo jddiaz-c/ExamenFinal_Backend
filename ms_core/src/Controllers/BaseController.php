@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Empleados\Controllers;
+namespace MsCore\Controllers;
 
-use App\Core\Validation\Validator;
+use MsCore\Validation\Validator;
 use Exception;
 
 abstract class BaseController

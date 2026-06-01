@@ -1,11 +1,15 @@
 <?php
 
+namespace MsCore\Middlewares;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as Handler;
+use Psr\Http\Message\ResponseInterface as Response;
 
-return function ($app) {
-    $app->options('/{routes:.+}', fn($req, $res) => $res);
-
-    $app->add(function (Request $request, $handler) {
+class CorsMiddleware
+{
+    public function __invoke(Request $request, Handler $handler): Response
+    {
         $origin = $request->getHeaderLine('Origin') ?: '*';
         $response = $handler->handle($request);
         $response = $response
@@ -19,5 +23,5 @@ return function ($app) {
         }
 
         return $response;
-    });
-};
+    }
+}

@@ -47,12 +47,13 @@ class IncapacidadController extends BaseController
     // CREATE
     protected function beforeCreate(array &$data): void
     {
-        $data['dias_incapacidad'] = $this->comprobarFechas($data['fecha_inicio'], $data['fecha_fin']);
+        $data['dias_incapacidad'] = $this->comprobarFechas($data['fecha_inicio'], $data['fecha_fin'], $data['empleado_id']);
+
     }
 
     // UPDATE
     protected function beforeUpdate(array &$data, $model): void
-    {   
+    {
         if (in_array($model->estado, ['rechazada', 'finalizada'])) {
             throw new Exception("Esta incapacidad ya no puede modificarse.", 2);
         }
@@ -67,7 +68,12 @@ class IncapacidadController extends BaseController
             throw new Exception("Los campos " . implode(', ', $camposLlenos) . " no pueden modificarse.", 2);
         }
 
-        $data['dias_incapacidad'] = $this->comprobarFechas($data['fecha_inicio'] ?? $model->fecha_inicio, $data['fecha_fin'] ?? $model->fecha_fin);
+        $data['dias_incapacidad'] = $this->comprobarFechas(
+            $data['fecha_inicio'] ?? $model->fecha_inicio,
+            $data['fecha_fin'] ?? $model->fecha_fin,
+            $model->empleado_id,
+            $model->id
+        );
     }
 
     // BUSCAR
@@ -97,7 +103,8 @@ class IncapacidadController extends BaseController
     {
         $incapacidad = $this->getOne($id);
 
-        if (empty($data['estado']) || !in_array($data['estado'], [
+        if (
+            empty($data['estado']) || !in_array($data['estado'], [
                 'registrada',
                 'en_revision',
                 'aprobada',
@@ -108,7 +115,7 @@ class IncapacidadController extends BaseController
             throw new Exception("Estado inválido. Debe ser 'registrada', 'en_revision', 'aprobada' o 'rechazada'.", 2);
         }
         if ($data['estado'] === 'finalizada') {
-                throw new Exception("Para finalizar la incapacidad, utilice la funcion especializada.", 2);
+            throw new Exception("Para finalizar la incapacidad, utilice la funcion especializada.", 2);
         }
         if (in_array($incapacidad->estado, ['rechazada', 'finalizada'])) {
             throw new Exception("Esta incapacidad ya no puede modificarse.", 2);
@@ -139,13 +146,28 @@ class IncapacidadController extends BaseController
     }
 
     // COMPROBAR FECHAS
-    public function comprobarFechas($inicio, $fin): int
+    public function comprobarFechas($inicio, $fin, $empleado_id = null, $excluir_id = null): int
     {
         if ($fin < $inicio) {
             throw new Exception("La fecha fin no puede ser menor a la fecha inicio.", 2);
         }
-        $inicio = new \DateTime($inicio);
-        $fin = new \DateTime($fin);
-        return $fin->diff($inicio)->days + 1;
+        $inicioDate = new \DateTime($inicio);
+        $finDate = new \DateTime($fin);
+
+        if ($empleado_id !== null) {
+            $query = Incapacidad::where('empleado_id', $empleado_id)
+                ->where('fecha_inicio', '<=', $fin)
+                ->where('fecha_fin', '>=', $inicio);
+
+            if ($excluir_id !== null) {
+                $query->where('id', '!=', $excluir_id);
+            }
+
+            if ($query->exists()) {
+                throw new Exception("Ya existe una incapacidad para este empleado en ese rango de fechas.", 2);
+            }
+        }
+
+        return $finDate->diff($inicioDate)->days + 1;
     }
 }

@@ -1,0 +1,28 @@
+### Listar todos los seguimientos
+GET http://localhost:8004/seguimientos
+Authorization: TU_TOKEN_AQUI
+
+### Buscar por incapacidad
+GET http://localhost:8004/seguimientos/buscar?incapacidad_id=1
+Authorization: TU_TOKEN_AQUI
+
+### Buscar por usuario responsable
+GET http://localhost:8004/seguimientos/buscar?usuario_responsable=admin
+Authorization: TU_TOKEN_AQUI
+
+### Obtener un seguimiento
+GET http://localhost:8004/seguimientos/1
+Authorization: TU_TOKEN_AQUI
+
+### Registrar seguimiento
+POST http://localhost:8004/seguimientos
+Content-Type: application/json
+Authorization: TU_TOKEN_AQUI
+
+{
+    "incapacidad_id": 1,
+    "fecha": "2026-06-06",
+    "comentario": "Incapacidad enviada a revisión",
+    "estado": "en_revision",
+    "usuario_responsable": "admin"
+}

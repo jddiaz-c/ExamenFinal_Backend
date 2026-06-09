@@ -95,6 +95,11 @@ class IncapacidadController extends BaseController
             $query->where('estado', $params['estado']);
         }
 
+        if (!empty($params['tipo'])) {
+            $query->where('tipo', $params['tipo']);
+        }
+
+
         return $query->get();
     }
 

@@ -10,6 +10,10 @@ Authorization: TU_TOKEN_AQUI
 GET http://localhost:8003/incapacidades/buscar?fecha_inicio=2026-06-01&fecha_fin=2026-06-10
 Authorization: TU_TOKEN_AQUI
 
+### Buscar por tipo
+GET http://localhost:8003/incapacidades/buscar?tipo=enfermedad_general
+Authorization: TU_TOKEN_AQUI
+
 ### Buscar por estado
 GET http://localhost:8003/incapacidades/buscar?estado=registrada
 Authorization: TU_TOKEN_AQUI

@@ -1,23 +1,26 @@
+@token = TU_TOKEN_AQUI
+@base = http://localhost:8004/seguimientos
+
 ### Listar todos los seguimientos
-GET http://localhost:8004/seguimientos
-Authorization: TU_TOKEN_AQUI
+GET {{base}}
+Authorization: {{token}}
 
 ### Buscar por incapacidad
-GET http://localhost:8004/seguimientos/buscar?incapacidad_id=1
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?incapacidad_id=1
+Authorization: {{token}}
 
 ### Buscar por usuario responsable
-GET http://localhost:8004/seguimientos/buscar?usuario_responsable=admin
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?usuario_responsable=admin
+Authorization: {{token}}
 
 ### Obtener un seguimiento
-GET http://localhost:8004/seguimientos/1
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/1
+Authorization: {{token}}
 
 ### Registrar seguimiento
-POST http://localhost:8004/seguimientos
+POST {{base}}
 Content-Type: application/json
-Authorization: TU_TOKEN_AQUI
+Authorization: {{token}}
 
 {
     "incapacidad_id": 1,

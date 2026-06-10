@@ -1,5 +1,8 @@
+@token = TU_TOKEN_AQUI
+@base = http://localhost:8001
+
 ### Login
-POST http://localhost:8001/auth/login
+POST {{base}}/auth/login
 Content-Type: application/json
 
 {
@@ -8,9 +11,49 @@ Content-Type: application/json
 }
 
 ### Logout
-POST http://localhost:8001/auth/logout
-Authorization: TU_TOKEN_AQUI
+POST {{base}}/auth/logout
+Authorization: {{token}}
 
-### validate
-POST http://localhost:8001/auth/validate
-Authorization: TOKEN_AQUI
+### Validate
+POST {{base}}/auth/validate
+Authorization: {{token}}
+
+### Listar usuarios
+GET {{base}}/usuarios
+Authorization: {{token}}
+
+### Obtener usuario
+GET {{base}}/usuarios/1
+Authorization: {{token}}
+
+### Crear usuario
+POST {{base}}/usuarios
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "nombre": "Juan David García",
+    "correo": "juandavid@empresa.com",
+    "usuario": "juandavid",
+    "contrasena": "juan123",
+    "rol": "empleado"
+}
+
+### Editar usuario
+PUT {{base}}/usuarios/1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "nombre": "Juan David García López",
+    "rol": "gestion_humana"
+}
+
+### Cambiar estado
+PATCH {{base}}/usuarios/1/estado
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "estado": "inactivo"
+}

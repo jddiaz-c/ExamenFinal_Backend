@@ -14,8 +14,6 @@ class Usuario extends Model
         'usuario',
         'contrasena',
         'rol',
-        'token',
-        'sesion_activa',
         'estado'
     ];
 

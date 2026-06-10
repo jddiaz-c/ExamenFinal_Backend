@@ -1,31 +1,34 @@
+@token = TU_TOKEN_AQUI
+@base = http://localhost:8003/incapacidades
+
 ### Listar todas las incapacidades
-GET http://localhost:8003/incapacidades
-Authorization: TU_TOKEN_AQUI
+GET {{base}}
+Authorization: {{token}}
 
 ### Buscar por empleado
-GET http://localhost:8003/incapacidades/buscar?empleado_id=1
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?empleado_id=1
+Authorization: {{token}}
 
 ### Buscar por rango de fechas
-GET http://localhost:8003/incapacidades/buscar?fecha_inicio=2026-06-01&fecha_fin=2026-06-10
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?fecha_inicio=2026-06-01&fecha_fin=2026-06-10
+Authorization: {{token}}
 
 ### Buscar por tipo
-GET http://localhost:8003/incapacidades/buscar?tipo=enfermedad_general
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?tipo=enfermedad_general
+Authorization: {{token}}
 
 ### Buscar por estado
-GET http://localhost:8003/incapacidades/buscar?estado=registrada
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/buscar?estado=registrada
+Authorization: {{token}}
 
 ### Obtener una incapacidad
-GET http://localhost:8003/incapacidades/1
-Authorization: TU_TOKEN_AQUI
+GET {{base}}/1
+Authorization: {{token}}
 
 ### Crear incapacidad
-POST http://localhost:8003/incapacidades
+POST {{base}}
 Content-Type: application/json
-Authorization: TU_TOKEN_AQUI
+Authorization: {{token}}
 
 {
     "empleado_id": 1,
@@ -38,9 +41,9 @@ Authorization: TU_TOKEN_AQUI
 }
 
 ### Editar incapacidad
-PUT http://localhost:8003/incapacidades/1
+PUT {{base}}/1
 Content-Type: application/json
-Authorization: TU_TOKEN_AQUI
+Authorization: {{token}}
 
 {
     "fecha_inicio": "2026-06-02",
@@ -49,14 +52,14 @@ Authorization: TU_TOKEN_AQUI
 }
 
 ### Cambiar estado
-PATCH http://localhost:8003/incapacidades/1/estado
+PATCH {{base}}/1/estado
 Content-Type: application/json
-Authorization: TU_TOKEN_AQUI
+Authorization: {{token}}
 
 {
     "estado": "en_revision"
 }
 
 ### Finalizar incapacidad
-PATCH http://localhost:8003/incapacidades/1/finalizar
-Authorization: TU_TOKEN_AQUI
+PATCH {{base}}/1/finalizar
+Authorization: {{token}}
